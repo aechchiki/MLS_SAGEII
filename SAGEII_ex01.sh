@@ -38,7 +38,7 @@ cat Pseud_protegens_S5_final.fasta | tail -n 1| tr -d '\n' | wc -c
 # Submit a quality control job
 # load fastqc 
 module add UHTS/Quality_control/fastqc/0.11.2;
-# create output directory for quqlity control 
+# create output directory for quality control 
 mkdir /scratch/cluster/monthly/mls_2015/aechchik/SA4_qc
 # submit job 
 bsub -n 2 -J SA4_qc fastqc -t 2 -o /scratch/cluster/monthly/mls_2015/aechchik/SA4_qc /scratch/cluster/monthly/mls_2015/SAGE/RNAseq/SA/SA4.fastq.gz
