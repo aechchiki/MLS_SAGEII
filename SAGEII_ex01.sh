@@ -48,7 +48,7 @@ bjobs
 
 # Extract CDs 
 # load cufflinks
-module add UHTS/Assembler/cufflinks/2.2.1;
+module add UHTS/Assembler/cufflinks/2.2.1; 
 # prepare output directory 
 mkdir /scratch/cluster/monthly/mls_2015/aechchik/SA4_cds
 cd /scratch/cluster/monthly/mls_2015/aechchik/SA4_cds
@@ -68,3 +68,13 @@ module add UHTS/Analysis/trimmomatic/0.33;
 # submit job 
 bsub -n 8 -M 8388608 -J trim_adapt_SA4 trimmomatic SE -threads 8 /scratch/cluster/monthly/SAGE/RNAseq/SA/SA4.fastq.gz /scratch/cluster/monthly/mls_2015/aechchik/SA4_qc/SA4t.fastq.gz ILLUMINACLIP:<adapters.fasta>:3:25:6 LEADING:9 TRAILING:9 SLIDINGWINDOW:4:15 MINLEN:60
 
+# Fastqc of trimmed reads
+# load fastqc 
+module add UHTS/Quality_control/fastqc/0.11.2;
+# create output directory for quality control 
+mkdir /scratch/cluster/monthly/mls_2015/aechchik/SA4t_qc
+# submit job 
+bsub -n 2 -J SA4t_qc fastqc -t 2 -o /scratch/cluster/monthly/mls_2015/aechchik/SA4t_qc /scratch/cluster/monthly/mls_2015/aechchik/SA4_qc/SA4t.fastq.gz
+#control running jobs 
+bjobs
+# output is .html 
